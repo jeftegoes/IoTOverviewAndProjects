@@ -46,7 +46,7 @@ namespace Web.Controllers
             }
 
             orderViewModel.ImageData = memoryStream.ToArray();
-            orderViewModel.ImageUrl = orderViewModel.File.FileName;
+            orderViewModel.PictureUrl = orderViewModel.File.FileName;
             orderViewModel.OrderId = Guid.NewGuid();
 
             var sendToUri = new Uri($"{RabbitMqMassTransitConstants.RabbitMqUri }" + $"{RabbitMqMassTransitConstants.RegisterOrderCommandQueue}");
@@ -55,9 +55,9 @@ namespace Web.Controllers
 
             await endPoint.Send<IRegisterOrderCommand>(new {
                 orderViewModel.OrderId,
+                orderViewModel.PictureUrl,
                 orderViewModel.UserEmail,
-                orderViewModel.ImageData,
-                orderViewModel.ImageUrl
+                orderViewModel.ImageData
             });
 
             ViewData["OrderId"] = orderViewModel.OrderId;

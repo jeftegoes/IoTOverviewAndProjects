@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -11,13 +12,13 @@ namespace ProjectFaceDetection.Controllers
     public class FacesController : ControllerBase
     {
         [HttpPost]
-        public async Task<List<byte[]>> ReadFaces()
+        public async Task<Tuple<List<byte[]>, Guid>> ReadFaces(Guid orderId)
         {
             using (var ms = new MemoryStream(2048))
             {
                 await Request.Body.CopyToAsync(ms);
                 var faces = GetFaces(ms.ToArray());
-                return faces;
+                return new Tuple<List<byte[]>, Guid>(faces, orderId);
             }
         }
 

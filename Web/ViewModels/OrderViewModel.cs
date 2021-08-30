@@ -11,7 +11,7 @@ namespace Web.ViewModels
         public string UserEmail { get; set; }
         [Display(Name = "Image file")]
         public IFormFile File { get; set; }
-        public string ImageUrl { get; set; }
+        public string PictureUrl { get; set; }
         public string StatusString { get; set; }
         public byte[] ImageData { get; set; }
     }

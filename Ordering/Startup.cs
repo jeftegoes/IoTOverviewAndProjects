@@ -36,6 +36,10 @@ namespace Ordering
             services.AddDbContext<OrderContext>(options => options.UseSqlServer(
                 Configuration.GetConnectionString("OrderContextConnection")
             ));
+            
+            services.AddHttpClient();
+
+            services.AddTransient<IOrderRepository, OrderRepository>();
 
             services.AddMassTransit(c =>
             {
