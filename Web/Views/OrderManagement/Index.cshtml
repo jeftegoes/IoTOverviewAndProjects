@@ -1,0 +1,29 @@
+@model List<Web.ViewModels.OrderViewModel>
+
+@{
+    ViewData["Title"] = "Orders List";
+}
+
+<h3>Orders management - overview</h3>
+<table class="table">
+    <thread>
+        <tr>
+            <th>Order id</th>
+            <th>User email</th>
+            <th>Image</th>
+            <th>Status</th>
+        </tr>
+    </thread>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr class="clickable" onclick="location.href='@(Url.Action("Details", "OrderManagement",
+                                                                new { orderId = order.OrderId }))'">
+                <td>@order.OrderId</td>
+                <td>@order.UserEmail</td>
+                <td><img src="@order.ImageString" width="50px"></td>
+                <td>@order.Status</td>
+            </tr>
+        }
+    </tbody>
+</table>

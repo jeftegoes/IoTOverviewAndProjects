@@ -7,10 +7,10 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Ordering.Persistence;
 
-namespace Ordering.Migrations
+namespace Ordering.Persistence.Migrations
 {
     [DbContext(typeof(OrderContext))]
-    [Migration("20210829012730_InitializeDDL")]
+    [Migration("20210906012552_InitializeDDL")]
     partial class InitializeDDL
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

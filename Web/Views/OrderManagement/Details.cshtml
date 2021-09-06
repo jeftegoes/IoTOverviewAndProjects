@@ -1,0 +1,19 @@
+@model Web.ViewModels.OrderViewModel
+@{
+    ViewData["Title"] = "Order details";
+}
+
+<h3>Order detail:</h3>
+Order id: @Model.OrderId
+User email: @Model.UserEmail
+Picture: <img src="@Model.ImageString" width="100px" />
+Order status: @Model.Status
+<table class="table">
+    @foreach (var detail in Model.OrderDetails)
+    {
+        <tr>
+            <td>@detail.OrderDetailId</td>
+            <td><img src="@detail.ImageString" width="40px"></td>
+        </tr>
+    }
+</table>

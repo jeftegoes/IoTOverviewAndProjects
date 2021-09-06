@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Web.RestClients;
 using Web.Services;
 
 namespace Web
@@ -38,6 +39,7 @@ namespace Web
                 }));
             });
 
+            services.AddHttpClient<IOrderManagementApi, OrderManagementApi>();
             services.AddControllersWithViews();
         }
 

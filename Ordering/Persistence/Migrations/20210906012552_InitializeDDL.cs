@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Ordering.Migrations
+namespace Ordering.Persistence.Migrations
 {
     public partial class InitializeDDL : Migration
     {

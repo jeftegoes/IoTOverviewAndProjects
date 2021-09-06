@@ -17,7 +17,10 @@ namespace Ordering.Persistence
         protected override void OnModelCreating(ModelBuilder builder)
         {
             var converter = new EnumToStringConverter<Status>();
-            builder.Entity<Order>().Property(p => p.Status).HasConversion(converter);
+            builder
+                .Entity<Order>()
+                .Property(p => p.Status)
+                .HasConversion(converter);
         }
     }
 }

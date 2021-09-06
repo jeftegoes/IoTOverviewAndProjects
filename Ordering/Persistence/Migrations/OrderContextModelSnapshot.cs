@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Ordering.Persistence;
 
-namespace Ordering.Migrations
+namespace Ordering.Persistence.Migrations
 {
     [DbContext(typeof(OrderContext))]
     partial class OrderContextModelSnapshot : ModelSnapshot
