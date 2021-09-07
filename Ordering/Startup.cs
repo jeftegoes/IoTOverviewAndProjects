@@ -36,7 +36,7 @@ namespace Ordering
             services.AddDbContext<OrderContext>(options => options.UseSqlServer(
                 Configuration.GetConnectionString("OrderContextConnection")
             ));
-            
+
             services.AddHttpClient();
 
             services.AddTransient<IOrderRepository, OrderRepository>();
@@ -59,12 +59,20 @@ namespace Ordering
                         e.UseMessageRetry(x => x.Interval(2, TimeSpan.FromSeconds(10)));
                         e.Consumer<RegisterOrderCommandConsumer>(provider);
                     });
+
+                    config.ReceiveEndpoint(RabbitMqMassTransitConstants.OrderDispatchedServiceQueue, e =>
+                    {
+                        e.PrefetchCount = 16;
+                        e.UseMessageRetry(x => x.Interval(2, 100));
+                        e.Consumer<OrderDispatchedEventConsumer>(provider);
+                    });
                 }));
             });
 
             services.AddSingleton<IHostedService, BusService>();
 
-            services.AddCors(options => {
+            services.AddCors(options =>
+            {
                 options.AddPolicy("CorsPolicy",
                     builder => builder
                     .AllowAnyMethod()
