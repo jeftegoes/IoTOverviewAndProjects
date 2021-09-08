@@ -8,14 +8,16 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Configuration;
 using System.IO;
 using EmailService;
+using System.Threading.Tasks;
 
 namespace NotificationService
 {
     class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
+            await host.RunAsync();
         }
 
         private static IHostBuilder CreateHostBuilder(string[] args)
@@ -30,7 +32,7 @@ namespace NotificationService
                 })
                 .ConfigureAppConfiguration((hostContext, config) => 
                 {
-                    config.AddJsonFile($"appsettings.{hostContext.HostingEnvironment.EnvironmentName}json", optional: false);
+                    config.AddJsonFile($"appsettings.{ hostContext.HostingEnvironment.EnvironmentName }.json", optional: false);
                 })
                 .ConfigureServices((hostContext, services) =>
                 {
