@@ -16,11 +16,12 @@ namespace Ordering.Messages.Consumers
             _orderRepository = orderRepository;
         }
 
-        public async Task Consume(ConsumeContext<IOrderDispatchedEvent> context)
+        public Task Consume(ConsumeContext<IOrderDispatchedEvent> context)
         {
             var message = context.Message;
             var orderId = message.OrderId;
             UpdateDatabase(orderId);
+            return Task.CompletedTask;
         }
 
         private void UpdateDatabase(Guid orderId)

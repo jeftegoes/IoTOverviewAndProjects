@@ -5,6 +5,7 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using MassTransit;
 using Messaging.Interfaces.Commands;
+using Messaging.Interfaces.Events;
 using Newtonsoft.Json;
 using Ordering.Models;
 using Ordering.Persistence;
@@ -40,6 +41,14 @@ namespace Ordering.Messages.Consumers
                 var faces = orderDetailData.Item1;
                 var orderId = orderDetailData.Item2;
                 SaveOrderDetail(orderId, faces);
+
+                await context.Publish<IOrderProcessedEvent>(new
+                {
+                    OrderId = orderId,
+                    result.UserEmail,
+                    Faces = faces,
+                    result.PictureUrl
+                });
             }
         }
 

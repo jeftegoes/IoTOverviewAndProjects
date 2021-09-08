@@ -44,6 +44,7 @@ namespace Ordering
             services.AddMassTransit(c =>
             {
                 c.AddConsumer<RegisterOrderCommandConsumer>();
+                c.AddConsumer<OrderDispatchedEventConsumer>();
 
                 c.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(config =>
                 {
