@@ -15,6 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Ordering.Hubs;
 using Ordering.Messages.Consumers;
 using Ordering.Persistence;
 using Ordering.Services;
@@ -38,7 +39,7 @@ namespace Ordering
             ));
 
             services.AddHttpClient();
-
+            services.AddSignalR();
             services.AddTransient<IOrderRepository, OrderRepository>();
 
             services.AddMassTransit(c =>
@@ -110,6 +111,7 @@ namespace Ordering
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<OrderHub>("/ordersHub");
             });
         }
     }

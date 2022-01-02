@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 using MassTransit;
 using Messaging.Interfaces.Commands;
 using Messaging.Interfaces.Events;
+using Microsoft.AspNetCore.SignalR;
 using Newtonsoft.Json;
+using Ordering.Hubs;
 using Ordering.Models;
 using Ordering.Persistence;
 
@@ -16,11 +18,15 @@ namespace Ordering.Messages.Consumers
     {
         private readonly IOrderRepository _orderRepository;
         private readonly IHttpClientFactory _clientFactory;
+        private readonly IHubContext<OrderHub> _hubContext;
 
-        public RegisterOrderCommandConsumer(IOrderRepository orderRepository, IHttpClientFactory clientFactory)
+        public RegisterOrderCommandConsumer(IOrderRepository orderRepository,
+                                            IHttpClientFactory clientFactory,
+                                            IHubContext<OrderHub> hubContext)
         {
             _orderRepository = orderRepository;
             _clientFactory = clientFactory;
+            _hubContext = hubContext;
         }
 
         public async Task Consume(ConsumeContext<IRegisterOrderCommand> context)
@@ -36,11 +42,16 @@ namespace Ordering.Messages.Consumers
             {
                 await SaveOrder(result);
 
+                await _hubContext.Clients.All.SendAsync("UpdateOrders", "New Order Created", result.OrderId);
+
                 var client = _clientFactory.CreateClient();
                 Tuple<List<byte[]>, Guid> orderDetailData = await GetFacesFromFaceApiAsync(client, result.ImageData, result.OrderId);
                 var faces = orderDetailData.Item1;
                 var orderId = orderDetailData.Item2;
+
                 SaveOrderDetail(orderId, faces);
+
+                await _hubContext.Clients.All.SendAsync("UpdateOrder", "Order processed", result.OrderId);
 
                 await context.Publish<IOrderProcessedEvent>(new
                 {

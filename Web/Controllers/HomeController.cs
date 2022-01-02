@@ -40,6 +40,7 @@ namespace Web.Controllers
         public async Task<IActionResult> RegisterOrder(OrderViewModel orderViewModel)
         {
             var memoryStream = new MemoryStream();
+
             using (var uploadedFile = orderViewModel.File.OpenReadStream())
             {
                 await uploadedFile.CopyToAsync(memoryStream);
@@ -61,6 +62,7 @@ namespace Web.Controllers
             });
 
             ViewData["OrderId"] = orderViewModel.OrderId;
+            
             return View("Thanks");
         }
 
