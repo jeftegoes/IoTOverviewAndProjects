@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "@microsoft/signalr": "^6.0.1"
+    "@microsoft/signalr": "^6.0.1",
+    "toastr": "^2.1.4"
   }
 }

@@ -27,14 +27,8 @@ namespace Ordering.Messages.Consumers
             var orderId = message.OrderId;
 
             UpdateDatabase(orderId);
-
-            var order = new object []
-            {
-                "Order dispatched",
-                orderId
-            };
-
-            await _hubContext.Clients.All.SendAsync("UpdateOrders", order);
+            
+            await _hubContext.Clients.All.SendAsync("UpdateOrders", "Order dispatched", orderId);
         }
 
         private void UpdateDatabase(Guid orderId)

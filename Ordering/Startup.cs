@@ -40,6 +40,7 @@ namespace Ordering
 
             services.AddHttpClient();
             services.AddSignalR();
+
             services.AddTransient<IOrderRepository, OrderRepository>();
 
             services.AddMassTransit(c =>

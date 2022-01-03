@@ -27,3 +27,33 @@
         }
     </tbody>
 </table>
+
+@section Scripts {
+    <script src="~/lib/signalr/dist/browser/signalr.min.js"></script>
+    <script>
+        var timerId;
+        var connection = new signalR.HubConnectionBuilder()
+                                    .withUrl("https://localhost:5001/ordersHub")
+                                    .configureLogging(signalR.LogLevel.Information)
+                                    .withAutomaticReconnect()
+                                    .build();
+
+        connection.on("UpdateOrders", function(message, orderId) {
+            if (orderId && orderId.length) {
+                toastr.success(orderId + " Updated to status: " + message);
+                refreshPage();
+            }
+        });
+
+        function refreshPage() {
+            clearTimeout(timerId);
+            timerId = setTimeout(function() {
+                window.location.reload();
+            }, 3000);
+        }
+
+        connection.start().catch(err => {
+            toastr.error(err.toString());
+        });
+    </script>
+}

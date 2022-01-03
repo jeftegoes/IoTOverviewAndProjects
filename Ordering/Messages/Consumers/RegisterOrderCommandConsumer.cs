@@ -51,7 +51,7 @@ namespace Ordering.Messages.Consumers
 
                 SaveOrderDetail(orderId, faces);
 
-                await _hubContext.Clients.All.SendAsync("UpdateOrder", "Order processed", result.OrderId);
+                await _hubContext.Clients.All.SendAsync("UpdateOrders", "Order processed", result.OrderId);
 
                 await context.Publish<IOrderProcessedEvent>(new
                 {

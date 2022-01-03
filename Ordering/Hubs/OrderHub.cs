@@ -4,6 +4,9 @@ namespace Ordering.Hubs
 {
     public class OrderHub : Hub
     {
-        
+        public OrderHub()
+        {
+            
+        }
     }
 }
