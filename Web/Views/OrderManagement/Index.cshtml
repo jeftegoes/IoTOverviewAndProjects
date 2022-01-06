@@ -28,12 +28,15 @@
     </tbody>
 </table>
 
+@using Microsoft.Extensions.Options
+@inject IOptions<AppSettings> settings
+
 @section Scripts {
     <script src="~/lib/signalr/dist/browser/signalr.min.js"></script>
     <script>
         var timerId;
         var connection = new signalR.HubConnectionBuilder()
-                                    .withUrl("https://localhost:5001/ordersHub")
+                                    .withUrl('@settings.Value.SignalRHubUrl/ordersHub')
                                     .configureLogging(signalR.LogLevel.Information)
                                     .withAutomaticReconnect()
                                     .build();

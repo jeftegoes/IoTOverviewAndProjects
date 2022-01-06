@@ -49,7 +49,7 @@ namespace NotificationService
 
                         c.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(config =>
                         {
-                            config.Host("localhost", "/", h =>
+                            config.Host("rabbitmq", "/", h =>
                             {
                                 h.Username(RabbitMqMassTransitConstants.UserName);
                                 h.Password(RabbitMqMassTransitConstants.Password);

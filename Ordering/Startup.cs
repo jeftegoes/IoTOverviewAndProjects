@@ -34,8 +34,10 @@ namespace Ordering
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<OrderContext>(options => options.UseSqlServer(
-                Configuration.GetConnectionString("OrderContextConnection")
+            services.Configure<OrderSettings>(Configuration);
+            services.AddDbContext<OrderContext>(options => options.UseSqlServer
+            (
+                Configuration["OrderContextConnection"]
             ));
 
             services.AddHttpClient();
@@ -50,7 +52,7 @@ namespace Ordering
 
                 c.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(config =>
                 {
-                    config.Host("localhost", "/", h =>
+                    config.Host("rabbitmq", "/", h =>
                     {
                         h.Username(RabbitMqMassTransitConstants.UserName);
                         h.Password(RabbitMqMassTransitConstants.Password);
@@ -114,6 +116,9 @@ namespace Ordering
                 endpoints.MapControllers();
                 endpoints.MapHub<OrderHub>("/ordersHub");
             });
+
+            using var scope = app.ApplicationServices.GetRequiredService<IServiceScopeFactory>().CreateScope();
+            scope.ServiceProvider.GetService<OrderContext>().MigrateDb();
         }
     }
 }

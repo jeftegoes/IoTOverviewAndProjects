@@ -1,6 +1,8 @@
+using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Ordering.Models;
+using Polly;
 
 namespace Ordering.Persistence
 {
@@ -21,6 +23,14 @@ namespace Ordering.Persistence
                 .Entity<Order>()
                 .Property(p => p.Status)
                 .HasConversion(converter);
+        }
+
+        public void MigrateDb()
+        {
+            Policy
+                .Handle<Exception>()
+                .WaitAndRetry(10, r => TimeSpan.FromSeconds(10))
+                .Execute(() => Database.Migrate());
         }
     }
 }

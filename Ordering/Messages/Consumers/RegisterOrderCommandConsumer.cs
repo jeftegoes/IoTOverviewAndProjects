@@ -7,6 +7,7 @@ using MassTransit;
 using Messaging.Interfaces.Commands;
 using Messaging.Interfaces.Events;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Ordering.Hubs;
 using Ordering.Models;
@@ -19,14 +20,17 @@ namespace Ordering.Messages.Consumers
         private readonly IOrderRepository _orderRepository;
         private readonly IHttpClientFactory _clientFactory;
         private readonly IHubContext<OrderHub> _hubContext;
+        private readonly IOptions<OrderSettings> _settings;
 
         public RegisterOrderCommandConsumer(IOrderRepository orderRepository,
                                             IHttpClientFactory clientFactory,
-                                            IHubContext<OrderHub> hubContext)
+                                            IHubContext<OrderHub> hubContext,
+                                            IOptions<OrderSettings> settings)
         {
             _orderRepository = orderRepository;
             _clientFactory = clientFactory;
             _hubContext = hubContext;
+            _settings = settings;
         }
 
         public async Task Consume(ConsumeContext<IRegisterOrderCommand> context)
@@ -72,7 +76,7 @@ namespace Ordering.Messages.Consumers
 
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.PostAsync($"http://localhost:7000/api/faces?orderId={ orderId }", byteContent))
+                using (var response = await httpClient.PostAsync($"{ _settings.Value.FacesApiUrl }/api/faces?orderId={ orderId }", byteContent))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
                     orderDetailData = JsonConvert.DeserializeObject<Tuple<List<byte[]>, Guid>>(apiResponse);
