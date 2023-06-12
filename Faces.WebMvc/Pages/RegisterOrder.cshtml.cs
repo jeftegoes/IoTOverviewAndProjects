@@ -1,7 +1,7 @@
-﻿using Faces.SharedLib.Commands;
-using Faces.SharedLib.Constants;
-using Faces.WebMvc.ViewModels;
+﻿using Faces.WebMvc.ViewModels;
 using MassTransit;
+using Messaging.Interfaces.SharedLib.Commands;
+using Messaging.Interfaces.SharedLib.Constants;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 

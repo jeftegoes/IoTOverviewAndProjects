@@ -3,13 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacesApi", "FacesApi\FacesApi.csproj", "{D00CD9A8-E708-4113-9C66-BF8F19F49C49}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faces.Api", "Faces.Api\Faces.Api.csproj", "{D00CD9A8-E708-4113-9C66-BF8F19F49C49}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacesApi.Test", "FacesApi.Test\FacesApi.Test.csproj", "{B99480BB-A745-411C-AB4E-B55B436A19DE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faces.Api.Test", "Faces.Api.Test\Faces.Api.Test.csproj", "{B99480BB-A745-411C-AB4E-B55B436A19DE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faces.SharedLib", "Faces.SharedLib\Faces.SharedLib.csproj", "{4F184BC6-5074-44FB-962B-50D879F9E08D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faces.Web", "Faces.Web\Faces.Web.csproj", "{1CB5D92D-C265-4EC0-8C3E-0ECF66CBFCE7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Faces.WebMvc", "Faces.WebMvc\Faces.WebMvc.csproj", "{1CB5D92D-C265-4EC0-8C3E-0ECF66CBFCE7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Messaging.Interfaces.SharedLib", "Messaging.Interfaces.SharedLib\Messaging.Interfaces.SharedLib.csproj", "{11212C21-6764-4D99-873C-939188272E6B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Orders.Api", "Orders.Api\Orders.Api.csproj", "{B9F90C75-53D8-4EA6-BF72-230189447ADD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,5 +40,13 @@ Global
 		{1CB5D92D-C265-4EC0-8C3E-0ECF66CBFCE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1CB5D92D-C265-4EC0-8C3E-0ECF66CBFCE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1CB5D92D-C265-4EC0-8C3E-0ECF66CBFCE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11212C21-6764-4D99-873C-939188272E6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11212C21-6764-4D99-873C-939188272E6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11212C21-6764-4D99-873C-939188272E6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11212C21-6764-4D99-873C-939188272E6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B9F90C75-53D8-4EA6-BF72-230189447ADD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B9F90C75-53D8-4EA6-BF72-230189447ADD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B9F90C75-53D8-4EA6-BF72-230189447ADD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B9F90C75-53D8-4EA6-BF72-230189447ADD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -1,4 +1,4 @@
-namespace Faces.SharedLib.Constants
+namespace Messaging.Interfaces.SharedLib.Constants
 {
     public class RabbitMqMassTransitConstants
     {
@@ -8,5 +8,6 @@ namespace Faces.SharedLib.Constants
         public const string RegisterOrderCommandQueue = "register.order.command";
         public const string NotificationServiceQueue = "notification.service.queue";
         public const string OrderDispatchedServiceQueue = "order.dispatch.service.queue";
+
     }
 }

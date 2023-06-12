@@ -1,6 +1,6 @@
-using Faces.SharedLib.Constants;
 using Faces.WebMvc.Services;
 using MassTransit;
+using Messaging.Interfaces.SharedLib.Constants;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,28 +11,14 @@ builder.Services.AddSingleton<IHostedService, BusService>();
 
 builder.Services.AddMassTransit(c =>
 {
-    // c.AddConsumer<RegisterOrderCommandConsumer>();
-    // c.AddConsumer<OrderDispatchedEventConsumer>();
-    c.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(config =>
+    c.UsingRabbitMq((context, config) =>
     {
         config.Host("localhost", "/", h =>
         {
             h.Username(RabbitMqMassTransitConstants.UserName);
             h.Password(RabbitMqMassTransitConstants.Password);
         });
-        // config.ReceiveEndpoint(RabbitMqMassTransitConstants.RegisterOrderCommandQueue, e =>
-        // {
-        //     e.PrefetchCount = 16;
-        //     e.UseMessageRetry(x => x.Interval(2, TimeSpan.FromSeconds(10)));
-        //     e.Consumer<RegisterOrderCommandConsumer>(provider);
-        // });
-        // config.ReceiveEndpoint(RabbitMqMassTransitConstants.OrderDispatchedServiceQueue, e =>
-        // {
-        //     e.PrefetchCount = 16;
-        //     e.UseMessageRetry(x => x.Interval(2, 100));
-        //     e.Consumer<OrderDispatchedEventConsumer>(provider);
-        // });
-    }));
+    });
 });
 
 var app = builder.Build();
