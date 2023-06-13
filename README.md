@@ -8,3 +8,5 @@
 | Messaging.Interfaces.SharedLib | netstandard2.1 | classlib | XXXX        |
 | Orders.Api                     | net5.0         | webapi   | 5000        |
 | CustomerNotification.Service   | net7.0         | console  | XXXX        |
+
+![Diagram](/FaceDetectionUseCase.png)
