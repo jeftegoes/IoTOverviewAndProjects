@@ -1,3 +1,5 @@
+using Faces.WebMvc;
+using Faces.WebMvc.RestClients;
 using Faces.WebMvc.Services;
 using MassTransit;
 using Messaging.Interfaces.SharedLib.Constants;
@@ -8,6 +10,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 
 builder.Services.AddSingleton<IHostedService, BusService>();
+
+builder.Services.Configure<AppSettings>(builder.Configuration);
 
 builder.Services.AddMassTransit(c =>
 {
@@ -20,6 +24,8 @@ builder.Services.AddMassTransit(c =>
         });
     });
 });
+
+builder.Services.AddHttpClient<IOrderManagementApi, OrderManagementApi>();
 
 var app = builder.Build();
 

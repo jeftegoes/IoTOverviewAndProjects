@@ -1,0 +1,62 @@
+﻿@page
+@model OrderManagementModel
+
+@{
+    ViewData["Title"] = "Order management";
+}
+
+<h3>Orders management - overview</h3>
+<table class="table">
+    <thread>
+        <tr>
+            <th>Order id</th>
+            <th>User email</th>
+            <th>Image</th>
+            <th>Status</th>
+        </tr>
+    </thread>
+    <tbody>
+        @foreach (var order in @Model.Orders)
+        {
+            <tr class="clickable" onclick="location.href='OrderManagementDetail?orderId=@order.OrderId'">
+                <td>@order.OrderId</td>
+                <td>@order.UserEmail</td>
+                <td><img src="@order.ImageString" width="50px"></td>
+                <td>@order.Status</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@using Microsoft.Extensions.Options
+@inject IOptions<AppSettings> settings
+
+@section Scripts {
+    <script src="~/lib/signalr/dist/browser/signalr.min.js"></script>
+    <script>
+        var timerId;
+        var connection = new signalR.HubConnectionBuilder()
+                                    .withUrl('@settings.Value.SignalRHubUrl/ordersHub')
+                                    .configureLogging(signalR.LogLevel.Information)
+                                    .withAutomaticReconnect()
+                                    .build();
+
+        connection.on("UpdateOrders", function(message, orderId) {
+            if (orderId && orderId.length) {
+                toastr.success(orderId + " Updated to status: " + message);
+                refreshPage();
+            }
+        });
+
+        function refreshPage() {
+            clearTimeout(timerId);
+            timerId = setTimeout(function() {
+                window.location.reload();
+            }, 3000);
+        }
+
+        connection.start().catch(err => {
+            toastr.error(err.toString());
+        });
+    </script>
+}
