@@ -27,7 +27,8 @@ class Program
             })
             .ConfigureAppConfiguration((hostContext, config) =>
             {
-                config.AddJsonFile($"appsettings.{hostContext.HostingEnvironment.EnvironmentName}.json", optional: false);
+                var environmentName = $"appsettings.{hostContext.HostingEnvironment.EnvironmentName}.json";
+                config.AddJsonFile(environmentName, optional: false);
             })
             .ConfigureServices((hostContext, services) =>
             {
@@ -44,7 +45,7 @@ class Program
 
                     c.UsingRabbitMq((context, config) =>
                     {
-                        config.Host("localhost", "/", h =>
+                        config.Host("rabbitmq", "/", h =>
                         {
                             h.Username(RabbitMqMassTransitConstants.UserName);
                             h.Password(RabbitMqMassTransitConstants.Password);

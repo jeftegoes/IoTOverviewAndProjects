@@ -21,7 +21,7 @@ public class FacesController : ControllerBase
     private List<byte[]> GetFaces(byte[] image)
     {
         var src = Cv2.ImDecode(image, ImreadModes.Color);
-
+        
         //src.SaveImage("image.jpg", new ImageEncodingParam(ImwriteFlags.JpegProgressive, 255));
         var file = Path.Combine(Directory.GetCurrentDirectory(), "CascadeFile", "haarcascade_frontalface_default.xml");
         var faceCascade = new CascadeClassifier();

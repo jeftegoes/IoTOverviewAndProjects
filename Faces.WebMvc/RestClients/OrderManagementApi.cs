@@ -13,7 +13,7 @@ namespace Faces.WebMvc.RestClients
         public OrderManagementApi(IOptions<AppSettings> settings,
                                   HttpClient httpClient)
         {
-            httpClient.BaseAddress = new Uri($"{ settings.Value.OrdersApiUrl }/api");
+            httpClient.BaseAddress = new Uri($"{settings.Value.OrdersApiUrl}/api");
             _orderManagementApi = RestService.For<IOrderManagementApi>(httpClient);
             _settings = settings;
         }

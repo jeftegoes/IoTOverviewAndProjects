@@ -32,7 +32,7 @@ namespace Orders.Api
             (
                 Configuration["OrderContextConnection"]
             ));
-
+            Console.WriteLine("HERE!!!" + Configuration["OrderContextConnection"]);
             services.AddHttpClient();
             services.AddSignalR();
 
@@ -45,7 +45,7 @@ namespace Orders.Api
 
                 c.UsingRabbitMq((context, config) =>
                 {
-                    config.Host("localhost", "/", h =>
+                    config.Host("rabbitmq", "/", h =>
                     {
                         h.Username(RabbitMqMassTransitConstants.UserName);
                         h.Password(RabbitMqMassTransitConstants.Password);
