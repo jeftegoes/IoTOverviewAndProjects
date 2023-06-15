@@ -48,8 +48,7 @@ namespace Orders.Api.Messages.Consumers
 
                 await _hubContext.Clients.All.SendAsync("UpdateOrders", "New Order Created", result.OrderId);
 
-                var client = _clientFactory.CreateClient();
-                Tuple<List<byte[]>, Guid> orderDetailData = await GetFacesFromFaceApiAsync(client, result.ImageData, result.OrderId);
+                Tuple<List<byte[]>, Guid> orderDetailData = await GetFacesFromFaceApiAsync(result.ImageData, result.OrderId);
                 var faces = orderDetailData.Item1;
                 var orderId = orderDetailData.Item2;
 
@@ -67,7 +66,7 @@ namespace Orders.Api.Messages.Consumers
             }
         }
 
-        private async Task<Tuple<List<byte[]>, Guid>> GetFacesFromFaceApiAsync(HttpClient client, byte[] imageData, Guid orderId)
+        private async Task<Tuple<List<byte[]>, Guid>> GetFacesFromFaceApiAsync(byte[] imageData, Guid orderId)
         {
             Tuple<List<byte[]>, Guid> orderDetailData = null;
 

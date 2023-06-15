@@ -1,0 +1,33 @@
+version: '3.4'
+
+services:
+  faces.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - 6000:80
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  faces.webmvc:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - OrdersApiUrl=http://orders.api
+      - SignalRHubUrl=http://localhost:5000
+    ports:
+      - 4000:80
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+
+  orders.api:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - OrderContextConnection=Server=mssql,1433;Database=OrderDb;User Id=sa;Password=Master@123;
+      - FacesApiUrl=http://faces.api
+    ports:
+      - 5000:80
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro

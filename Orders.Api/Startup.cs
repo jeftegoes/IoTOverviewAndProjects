@@ -32,7 +32,6 @@ namespace Orders.Api
             (
                 Configuration["OrderContextConnection"]
             ));
-            Console.WriteLine("HERE!!!" + Configuration["OrderContextConnection"]);
             services.AddHttpClient();
             services.AddSignalR();
 
